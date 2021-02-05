@@ -25,7 +25,7 @@ export const TaskLists = () => {
                     taskLists && taskLists.map((el, i) => {
                         return (
                             <li key={i} className={activeTask === el.id ? css["active"] : null} onClick={() => chooseTask(el.id)}>
-                                <span>{el.titleValue}</span>
+                                <span>{el.titleValue.substring(0, 15).substring(0, 15)}</span>
                                 <div>
                                     <span className={css["remove-task"]} onClick={(e)=>removeTask(e, el.id)}>x</span>
                                 </div>
