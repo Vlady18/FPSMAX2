@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
-import './TaskLists.sass'
+import css from './TaskLists.module.sass'
 import {useDispatch, useSelector} from "react-redux";
-import {changeActiveTaskAC, removeTaskAC} from "../../redux/TaskReducer";
+import {changeActiveTaskAC, removeTaskThunkCreator} from "../../redux/TaskReducer";
 
 export const TaskLists = () => {
 
@@ -15,25 +15,19 @@ export const TaskLists = () => {
 
     const removeTask = (e, id)=>{
         e.stopPropagation();
-        const storageTasks = JSON.parse(localStorage.getItem("Tasks"));
-        const resultTasks = storageTasks.filter((el) => el.id !== id);
-        let serialObj = JSON.stringify(resultTasks);
-        localStorage.setItem('Tasks', serialObj);
-        dispatch(removeTaskAC(id))
+        dispatch(removeTaskThunkCreator(id))
     }
 
     return (
-        <div className="Task-Lists">
-            {/*<button className="btn btn-dark">Добавить заметку</button>*/}
-            <ul className="lists-roll">
+        <div className= {css["Task-Lists"]}>
+            <ul className={css["lists-roll"]}>
                 {
-                    taskLists.length && taskLists.map((el, i) => {
+                    taskLists && taskLists.map((el, i) => {
                         return (
-                            <li key={i} className={activeTask === el.id ? "active" : null} onClick={() => chooseTask(el.id)}>
+                            <li key={i} className={activeTask === el.id ? css["active"] : null} onClick={() => chooseTask(el.id)}>
                                 <span>{el.titleValue}</span>
                                 <div>
-                                    <span className="remove-task" onClick={(e)=>removeTask(e, el.id)}>x</span>
-
+                                    <span className={css["remove-task"]} onClick={(e)=>removeTask(e, el.id)}>x</span>
                                 </div>
                             </li>
                         )

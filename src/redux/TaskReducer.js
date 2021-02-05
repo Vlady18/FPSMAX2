@@ -1,14 +1,15 @@
+import {Map, List, fromJS, updateIn } from 'immutable';
+import {addStorageTask, getStorageTasks, removeStorageTask, updateStorageTask} from "../utils/task-storage";
 const ADD_TASK = "ADD_TASK";
 const CHANGE_TASK = "CHANGE_TASK";
 const REMOVE_TASK = "REMOVE_TASK";
 const INITIALIZE_APP = "INITIALIZE_APP";
 const CHANGE_ACTIVE_TASK = "CHANGE_ACTIVE_TASK";
 
-const initialState = {
-    tasks: [],
+const initialState = Map({
+    tasks: List([]),
     activeTask: null
-}
-
+})
 
 export const TaskReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -18,7 +19,6 @@ export const TaskReducer = (state = initialState, action) => {
                 tasks: action.tasks
             }
         case ADD_TASK:
-            const index = state.tasks.findIndex((el, i) => el.id === action.task.id)
             return {
                 ...state,
                 tasks: [...state.tasks, action.task]
@@ -80,4 +80,24 @@ export const initializeAppAC = (tasks) => {
         type: INITIALIZE_APP,
         tasks
     }
+}
+
+export const changeTaskThunkCreator = (task, activeTask) => async (dispatch)=>{
+    updateStorageTask(activeTask, task.titleValue, task.descriptionValue);
+    dispatch(changeTaskAC(task))
+}
+
+export const addTaskThunkCreator = (task) => async (dispatch )=>{
+    addStorageTask(task)
+    dispatch(addTask(task))
+}
+
+export const removeTaskThunkCreator = (id) => async (dispatch )=>{
+    removeStorageTask(id)
+    dispatch(removeTaskAC(id))
+}
+
+export const initializeAppThunkCreator = () => async (dispatch )=>{
+    const storagePairs = getStorageTasks() || [];
+    dispatch(initializeAppAC(storagePairs))
 }

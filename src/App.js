@@ -1,16 +1,14 @@
 import React, {useEffect} from 'react'
 import {TasksLayout} from "./Container/TasksLayout/TasksLayout";
 import {useDispatch} from "react-redux";
-import {initializeAppAC} from "./redux/TaskReducer";
+import {initializeAppThunkCreator} from "./redux/TaskReducer";
 
 function App() {
 
+
     const dispatch = useDispatch()
-
     useEffect(() => {
-        const storagePairs = JSON.parse(localStorage.getItem("Tasks")) || [];
-        dispatch(initializeAppAC(storagePairs))
-
+        dispatch(initializeAppThunkCreator())
     }, [])
 
     return (
