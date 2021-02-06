@@ -45,27 +45,6 @@ export const TaskArea = () => {
         setTitleValue('');
         dispatch(changeActiveTaskAC(null))
     }, [titleValue, descriptionValue]);
-
-
-    // const onSubmit = (e) => {
-    //     e.preventDefault();
-    //     if(titleValue === ''){
-    //         return
-    //     }
-    //     const task = {
-    //         id: activeTask ? activeTask : Math.random(),
-    //         titleValue,
-    //         descriptionValue
-    //     }
-    //     if(activeTask){
-    //         dispatch(changeTaskThunkCreator(task, activeTask))
-    //     } else{
-    //         dispatch(addTaskThunkCreator(task))
-    //     }
-    //     setDescriptionValue('');
-    //     setTitleValue('');
-    //     dispatch(changeActiveTaskAC(null))
-    // }
     return (
         <div className={css["Task-Area"]}>
             <form onSubmit={onSubmit}>

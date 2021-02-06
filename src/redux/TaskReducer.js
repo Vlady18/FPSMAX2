@@ -1,4 +1,3 @@
-import {Map, List, fromJS, updateIn } from 'immutable';
 import {addStorageTask, getStorageTasks, removeStorageTask, updateStorageTask} from "../utils/task-storage";
 const ADD_TASK = "ADD_TASK";
 const CHANGE_TASK = "CHANGE_TASK";
@@ -6,10 +5,10 @@ const REMOVE_TASK = "REMOVE_TASK";
 const INITIALIZE_APP = "INITIALIZE_APP";
 const CHANGE_ACTIVE_TASK = "CHANGE_ACTIVE_TASK";
 
-const initialState = Map({
-    tasks: List([]),
+const initialState = {
+    tasks: [],
     activeTask: null
-})
+}
 
 export const TaskReducer = (state = initialState, action) => {
     switch (action.type) {
