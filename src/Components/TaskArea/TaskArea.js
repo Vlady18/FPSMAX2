@@ -28,6 +28,7 @@ export const TaskArea = () => {
     const onSubmit = useCallback((event ) => {
         event.preventDefault();
         if(titleValue === ''){
+            alert("Введите название заметки!")
             return
         }
         const task = {
